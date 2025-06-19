@@ -43,6 +43,9 @@ export class FlightsService {
                 dualTime: "",
                 instructorTime: "",
             }
+            if(!flights || flights.length === 0) {
+                return result;
+            }
             flights.forEach((flight) => {
                 result.SinglePilotSeTime = this.addTime(result.SinglePilotSeTime, flight.SinglePilotSeTime);
                 result.SinglePilotMeTime = this.addTime(result.SinglePilotMeTime, flight.SinglePilotMeTime);

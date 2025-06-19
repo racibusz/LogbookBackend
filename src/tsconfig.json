@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "target": "es6", // lub nowszy
+    "module": "commonjs", // lub inny odpowiedni
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+  }
+}

@@ -2,16 +2,17 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from '../users/users.entity'; // dodaj inne encje, jeśli masz
 import { Flight } from '../flights/flights.entity';
+import { Airplane } from '../airplanes/airpane.entity';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'mysql',
-      database: 'logbok_app',
+      database: 'logbook_app',
       username: 'root',
       password: '',
       host: 'localhost',
-      entities: [User, Flight],
+      entities: [User, Flight, Airplane],
       synchronize: true,
     }),
   ],
