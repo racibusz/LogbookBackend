@@ -1,4 +1,5 @@
-import { Column, Entity, Generated, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, Generated, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Airplane } from "../airplanes/airpane.entity";
 
 @Entity()
 export class Flight {
@@ -20,6 +21,8 @@ export class Flight {
     aircraftType: string;
     @Column()
     aircraftRegistration: string;
+    // @ManyToOne(()=>Airplane)
+    // airplane: Airplane
     @Column()
     SinglePilotSeTime: string;
     @Column()

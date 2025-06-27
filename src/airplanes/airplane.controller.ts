@@ -24,8 +24,16 @@ export class AirplanesController {
     async getType(@Session() session: Record<string, any>, @Param("type") type: string){
         return this.airplaneService.getAirplaneModel(session, type)
     }
+    @Get("/typenames/:typeName")
+    async getTypeByName(@Session() session: Record<string, any>, @Param("typeName") typeName: string){
+        return this.airplaneService.getAirplaneTypeByModel(session, typeName);
+    }
     @Get(":id")
     async getAirplaneById(@Session() session: Record<string, any>, @Param("id") id: number) {
         return this.airplaneService.getAirplaneById(session, id);
+    }
+    @Get("/registration/:registration")
+    async getAirplaneByRegistration(@Session() session: Record<string, any>, @Param("registration") registration: string) {
+        return this.airplaneService.getAirplaneByRegistration(session, registration);
     }
 }

@@ -3,6 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { Flight } from "./flights.entity";
 import { Session } from "express-session";
+import { Airplane } from "../airplanes/airpane.entity";
 
 @Injectable()
 export class FlightsService {
@@ -66,7 +67,18 @@ export class FlightsService {
             if(!session.user){
                 return []
             }
-            const allFlights = await this.flightsRepository.find({where: {userId: session.user.id}, order: {flightDate: "ASC"}})
+            // const allFlights = await this.flightsRepository.find({where: {userId: session.user.id}, order: {flightDate: "ASC"}});
+            const allFlights = await this.flightsRepository
+            .createQueryBuilder('flight')
+            .leftJoinAndMapOne(
+                'flight.airplane',
+                Airplane,
+                'airplane',
+                'flight.aircraftRegistration = airplane.registration'
+            )
+            .where('flight.userId = :userId', { userId: session.user.id })
+            .orderBy('flight.flightDate', 'ASC')
+            .getMany();
             const result: Flight[][] = [];
             for (let i = 0; i < allFlights.length; i += 10) {
                 result.push(allFlights.slice(i, i + 10));

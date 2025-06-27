@@ -4,6 +4,7 @@ import { Airplane } from "./airpane.entity";
 import { Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
 import { AirplaneType } from "./airplaneType.entity";
+import { Like } from "typeorm";
 
 @Injectable()
 export class AirplaneService {
@@ -14,6 +15,13 @@ export class AirplaneService {
         @InjectRepository(AirplaneType)
         private readonly airplaneTypeRepository: Repository<AirplaneType>,
     ) { }
+    
+    async getAirplaneTypeByModel(session: Record<string, any>, model: string) {
+        // if(!session.user){
+            // return []
+        // }
+        return this.airplaneTypeRepository.find({where: { model: Like(`%${model}%`) }});
+    }
     
     async saveAirplaneType(AirplaneTypes: Array<Record<string, any>>) {
         AirplaneTypes.forEach((type)=>{
@@ -44,6 +52,12 @@ export class AirplaneService {
             return []
         }
         return this.airplaneRepository.find({where: { userId: session.user.id }, relations: ["model"]});
+    }
+    async getAirplaneByRegistration(session: Record<string, any>, registration: string) {
+        if(!session.user){
+            return null
+        }
+        return this.airplaneRepository.find({where: {registration: Like(`%${registration}%`)}, relations: ["model"]});
     }
     async getAirplaneById(session: Record<string, any>, id: number) {
         if(!session.user){
