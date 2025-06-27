@@ -1,4 +1,5 @@
-import { Column, Entity, Generated, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, Generated, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { AirplaneType } from "./airplaneType.entity";
 
 @Entity()
 export class Airplane {
@@ -7,7 +8,10 @@ export class Airplane {
     @Column()
     userId: number;
     @Column()
-    model: string;
+    @ManyToOne(()=>AirplaneType, (airplaneType) => airplaneType.id)
+    model: number;
+    @Column()
+    type: string;
     @Column()
     registration: string;
     @Column()
@@ -15,5 +19,5 @@ export class Airplane {
     @Column()
     pricePerHour: string;
     @Column()
-    category: string;
+    image: string;
 }

@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from '../users/users.entity'; // dodaj inne encje, jeśli masz
 import { Flight } from '../flights/flights.entity';
 import { Airplane } from '../airplanes/airpane.entity';
+import { AirplaneType } from '../airplanes/airplaneType.entity';
 
 @Module({
   imports: [
@@ -12,7 +13,7 @@ import { Airplane } from '../airplanes/airpane.entity';
       username: 'root',
       password: '',
       host: 'localhost',
-      entities: [User, Flight, Airplane],
+      entities: [User, Flight, Airplane, AirplaneType],
       synchronize: true,
     }),
   ],
